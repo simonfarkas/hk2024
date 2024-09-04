@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
-import { Fragment } from "react";
+import Link from "next/link";
+import { Fragment, useRef, useState, useEffect } from "react";
 
 const data = [
   {
@@ -40,19 +43,84 @@ const oznamy = [
     title: "Výročie SNP",
     text: "asjd as ddas ajasudhas sadbasid asjdsajd",
   },
+  {
+    img: "/Group 8.png",
+    title: "Výročie SNP",
+    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+  },
+  {
+    img: "/Group 8.png",
+    title: "Výročie SNP",
+    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+  },
+  {
+    img: "/Group 8.png",
+    title: "Výročie SNP",
+    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+  },
+  {
+    img: "/Group 8.png",
+    title: "Výročie SNP",
+    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+  },
+];
+
+const navrhy = [
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    against: 40,
+    for: 60,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
 ];
 
 const Card = ({
   card,
+  onClick,
 }: {
   card: {
     img: string;
     title: string;
     text: string;
   };
+  onClick: () => void;
 }) => {
   return (
-    <div className="max-w-[300px] mb-4">
+    <div className="max-w-[300px] mb-4" onClick={onClick}>
       <Image src={card.img} alt="oznam" width={300} height={150} />
       <div className="bg-white shadow-md p-2">
         <h3 className="font-semibold">{card.title}</h3>
@@ -64,11 +132,51 @@ const Card = ({
 };
 
 export default function Home() {
+  const [sliceIndexOznamy, setSliceIndexOznamy] = useState(2);
+  const [activeOznam, setActiveOznam] = useState({
+    index: 0,
+    active: false,
+    text: "",
+    title: "",
+    img: "",
+  });
+  const oznamRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (oznamRef.current && !oznamRef.current.contains(event.target)) {
+        setActiveOznam({ ...activeOznam, active: false });
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [oznamRef]);
+
   return (
-    <div
-      className="px-4"
-      style={{ maxWidth: "420px", width: "420px" }}
-    >
+    <div className="px-4" style={{ maxWidth: "420px", width: "420px" }}>
+      {activeOznam.active && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="absolute inset-0 bg-black bg-opacity-75"></div>
+          <dialog
+            open={activeOznam.active}
+            className="relative bg-white p-6 rounded-lg shadow-lg w-full px-4"
+            style={{ maxWidth: "420px", width: "390px" }}
+            ref={oznamRef}
+          >
+            <Image src={activeOznam.img} alt="oznam" width={300} height={150} />
+            <h2 className="font-semibold text-xl mb-4">{activeOznam.title}</h2>
+            <p className="text-gray-600 mb-4">{activeOznam.text}</p>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              onClick={() => setActiveOznam({ ...activeOznam, active: false })}
+            >
+              Zavrieť
+            </button>
+          </dialog>
+        </div>
+      )}
       <div>
         <ul className="w-full mt-10">
           {data.map((event) => (
@@ -102,13 +210,30 @@ export default function Home() {
       <div className="mt-10">
         <h2 className="text-gray-600 font-semibold text-left mb-4">Oznamy</h2>
         <div className="grid grid-cols-2 gap-4">
-          {oznamy.map((oznam) => (
-            <Card key={oznam.text} card={oznam} />
+          {oznamy.slice(0, sliceIndexOznamy).map((oznam, index) => (
+            <Card
+              key={index}
+              card={oznam}
+              onClick={() =>
+                setActiveOznam({
+                  active: true,
+                  index: oznamy.indexOf(oznam),
+                  text: oznam.text,
+                  title: oznam.title,
+                  img: oznam.img,
+                })
+              }
+            />
           ))}
         </div>
-        <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">
-          Načítať viac
-        </button>
+        {oznamy.length > sliceIndexOznamy && (
+          <button
+            className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full"
+            onClick={() => setSliceIndexOznamy(sliceIndexOznamy + 2)}
+          >
+            Načítať viac
+          </button>
+        )}
       </div>
 
       <div className="mt-10">
@@ -116,23 +241,26 @@ export default function Home() {
           Názory a návrhy
         </h2>
         <div className="mt-4">
-          <div className="bg-gray-100 p-4 rounded-md">
-            <div className="flex justify-between mb-2">
-              <span className="text-green-600">Za 60%</span>
-              <span className="text-red-600">Proti 40%</span>
+          {navrhy.slice(0, 1).map((navrh, index) => (
+            <div key={index} className="bg-gray-100 p-4 rounded-md my-2">
+              <div className="flex justify-between mb-2">
+                <span className="text-green-600">Za {navrh.for}%</span>
+                <span className="text-red-600">Proti {navrh.against}%</span>
+              </div>
+              <div className="w-full bg-gray-300 rounded-full h-2.5">
+                <div
+                  className="bg-red-500 h-2.5 rounded-full"
+                  style={{ width: `${navrh.for}%` }}
+                ></div>
+              </div>
+              <p className="mt-2 text-sm text-gray-500">{navrh.text}</p>
             </div>
-            <div className="w-full bg-gray-300 rounded-full h-2.5">
-              <div
-                className="bg-red-500 h-2.5 rounded-full"
-                style={{ width: "60%" }}
-              ></div>
-            </div>
-            <p className="mt-2 text-sm text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <button className="text-red-500 mt-2">Zobraziť viac</button>
-          </div>
+          ))}
+          <Link href="/navrhy">
+            <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">
+              Všetky návrhy
+            </button>
+          </Link>
         </div>
       </div>
     </div>

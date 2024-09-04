@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={"justify-center mx-auto flex flex-col items-center relative"}
+        className={"flex flex-col min-h-screen items-center justify-between"}
       >
         <Header />
-        <main className='h-screen flex flex-col bg-white'> 
+        <main className='h-screen flex flex-col bg-white justify-between'> 
           {children}
           <Navbar />
         </main>
