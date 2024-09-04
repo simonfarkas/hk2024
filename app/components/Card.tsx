@@ -1,4 +1,5 @@
-import React from 'react';
+import Image from "next/image";
+import React from "react";
 
 const Card = ({
   card,
@@ -6,62 +7,72 @@ const Card = ({
   onClick,
 }: {
   card: {
-    options: { title: string; percentage: number }[];
+    options?: { title: string; percentage: number }[];
+    image?: string;
     text: string;
   };
   index: number;
   onClick: () => void;
 }) => {
-  // Calculate total percentage (should be 100 ideally)
-  const totalPercentage = card.options.reduce((acc, option) => acc + option.percentage, 0);
+  const totalPercentage = card.options?.reduce(
+    (acc, option) => acc + option.percentage,
+    0,
+  );
 
-  // Define colors for the segments
-  const colors = ['bg-green-500', 'bg-red-500', 'bg-yellow-500', 'bg-blue-500'];
+  const colors = ["bg-green-500", "bg-red-500", "bg-yellow-500", "bg-blue-500"];
 
   let accumulatedWidth = 0;
 
   return (
-    <div key={index} className="p-4 shadow-md rounded-md my-2 bg-white">
-      {/* Display option titles above the bar */}
-      <div className="flex justify-between mb-1 text-xs text-gray-800">
-        {card.options.map((option, optionIndex) => (
-          <span key={optionIndex}>{option.title}</span>
+    <div
+      key={index}
+      className={`shadow-md rounded-md my-2 bg-white ${card.image ? "" : "p-4"}`}
+    >
+      <div className="flex justify-between mb-1">
+        {card.options?.map((option, optionIndex) => (
+          <span key={optionIndex} className="text-gray-800 text-xs">
+            {option.title}
+          </span>
         ))}
       </div>
 
-      {/* Render the horizontal bar with rounded corners only at the start and end */}
-      <div className="relative h-6 w-full bg-gray-200 rounded-full overflow-hidden">
-        {card.options.map((option, optionIndex) => {
-          const width = `${(option.percentage / totalPercentage) * 100}%`;
-          const color = colors[optionIndex % colors.length];
-          
-          // Calculate the left position of the segment
-          const left = `${accumulatedWidth}%`;
-          accumulatedWidth += parseFloat(width); // Update the accumulated width for the next segment
+      {card.options && totalPercentage && (
+        <div className="relative h-4 w-full bg-gray-200 rounded-full overflow-hidden">
+          {card.options?.map((option, optionIndex) => {
+            const width = `${(option.percentage / totalPercentage) * 100}%`;
+            const color = colors[optionIndex % colors.length];
 
-          return (
-            <div
-              key={optionIndex}
-              className={`absolute top-0 h-full ${color}`}
-              style={{ width, left }}
-            >
-              <div className="absolute inset-0 flex items-center justify-center text-white text-xs font-semibold">
-                {option.percentage}%
+            const left = `${accumulatedWidth}%`;
+            accumulatedWidth += parseFloat(width);
+
+            return (
+              <div
+                key={optionIndex}
+                className={`absolute top-0 h-full ${color}`}
+                style={{ width, left }}
+              >
+                <div className="absolute inset-0 flex items-center justify-center text-white text-xs font-semibold">
+                  {option.percentage}%
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <p className="mt-2 text-sm text-gray-500">{card.text}</p>
-      {onClick && (
-        <button
-          className="bg-red-600 text-xs px-4 py-2 text-white rounded-md mt-2"
-          onClick={onClick}
-        >
-          Zobraziť detaily
-        </button>
+            );
+          })}
+        </div>
       )}
+      {card.image && (
+        <Image src={card.image} alt="oznam" width={390} height={200} />
+      )}
+      <div className={`${card.image ? 'p-4' : ''}`}>
+        <p className="mt-2 text-sm text-gray-500">{card.text}</p>
+        {onClick && (
+          <button
+            className="bg-red-600 text-xs px-4 py-2 text-white rounded-md mt-2"
+            onClick={onClick}
+          >
+            Zobraziť detaily
+          </button>
+        )}
+      </div>
     </div>
   );
 };

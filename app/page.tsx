@@ -3,114 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import Card from "./components/Card";
-import { Fragment, useRef, useState, useEffect } from "react";
-
-const data = [
-  {
-    id: 1,
-    name: "Hackathon",
-    time: "09:00",
-    date: "04.09.",
-    place: "PKO Čierny orol",
-    label: "Dnes",
-    color: "bg-blue-500",
-  },
-  {
-    id: 2,
-    name: "Koncert",
-    date: "07.09.",
-    place: "Hlavná ulica",
-    label: "Tento týždeň",
-    color: "bg-purple-500",
-  },
-  {
-    id: 3,
-    name: "Pivné dni",
-    date: "08.09.",
-    place: "",
-    label: "Tento týždeň",
-    color: "bg-green-500",
-  },
-];
-
-const oznamy = [
-  {
-    img: "/Group 8.png",
-    title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
-  },
-  {
-    img: "/Group 8.png",
-    title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
-  },
-  {
-    img: "/Group 8.png",
-    title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
-  },
-  {
-    img: "/Group 8.png",
-    title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
-  },
-  {
-    img: "/Group 8.png",
-    title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
-  },
-  {
-    img: "/Group 8.png",
-    title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
-  },
-];
-
-const navrhy = [
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    options: [
-      {
-        id: 1,
-        percentage: 40,
-        title: "Ano",
-      },
-      {
-        id: 2,
-        percentage: 60,
-        title: "Nie",
-      },
-    ],
-  },
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    options: [
-      {
-        id: 1,
-        title: "Ano",
-        percentage: 40,
-      },
-      {
-        id: 2,
-        title: "Nie",
-        percentage: 40,
-      },
-      {
-        id: 3,
-        title: "Neviem",
-        percentage: 20,
-      },
-    ],
-  },
-];
-
+import { Fragment } from "react";
+import { data, navrhy, oznamy } from "../data";
 
 const Oznam = ({
   card,
   onClick,
 }: {
   card: {
-    img: string;
+    image: string;
     title: string;
     text: string;
   };
@@ -118,7 +19,7 @@ const Oznam = ({
 }) => {
   return (
     <div className="max-w-[300px] mb-4" onClick={onClick}>
-      <Image src={card.img} alt="oznam" width={300} height={150} />
+      <Image src={card.image} alt="oznam" width={300} height={150} />
       <div className="bg-white shadow-md p-2">
         <h3 className="font-semibold">{card.title}</h3>
         <p className="text-gray-600 text-sm">{card.text}</p>
@@ -129,55 +30,45 @@ const Oznam = ({
 };
 
 export default function Home() {
-  const [sliceIndexOznamy, setSliceIndexOznamy] = useState(2);
-  const [activeOznam, setActiveOznam] = useState({
-    index: 0,
-    active: false,
-    text: "",
-    title: "",
-    img: "",
-  });
-  const oznamRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (oznamRef.current && !oznamRef.current.contains(event.target)) {
-        setActiveOznam({ ...activeOznam, active: false });
-      }
+  const reducedData = data.reduce((acc: any, curr) => {
+    if (!acc[curr.label]) {
+      acc[curr.label] = curr;
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [oznamRef]);
+    return acc;
+  }, {});
 
   return (
     <div className="px-4" style={{ maxWidth: "420px", width: "420px" }}>
-      {activeOznam.active && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black bg-opacity-75"></div>
-          <dialog
-            open={activeOznam.active}
-            className="relative bg-white p-6 rounded-lg shadow-lg w-full px-4"
-            style={{ maxWidth: "420px", width: "390px" }}
-            ref={oznamRef}
-          >
-            <Image src={activeOznam.img} alt="oznam" width={300} height={150} />
-            <h2 className="font-semibold text-xl mb-4">{activeOznam.title}</h2>
-            <p className="text-gray-600 mb-4">{activeOznam.text}</p>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              onClick={() => setActiveOznam({ ...activeOznam, active: false })}
-            >
-              Zavrieť
-            </button>
-          </dialog>
-        </div>
-      )}
+      {/* {activeOznam.active && ( */}
+      {/*   <div className="fixed inset-0 flex items-center justify-center z-50"> */}
+      {/*     <div className="absolute inset-0 bg-black bg-opacity-75"></div> */}
+      {/*     <dialog */}
+      {/*       open={activeOznam.active} */}
+      {/*       className="relative bg-white p-6 rounded-lg shadow-lg w-full px-4" */}
+      {/*       style={{ maxWidth: "420px", width: "390px" }} */}
+      {/*       ref={oznamRef} */}
+      {/*     > */}
+      {/*       <Image src={activeOznam.img} alt="oznam" width={300} height={150} /> */}
+      {/*       <h2 className="font-semibold text-xl mb-4">{activeOznam.title}</h2> */}
+      {/*       <p className="text-gray-600 mb-4">{activeOznam.text}</p> */}
+      {/*       <button */}
+      {/*         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" */}
+      {/*         onClick={() => setActiveOznam({ ...activeOznam, active: false })} */}
+      {/*       > */}
+      {/*         Zavrieť */}
+      {/*       </button> */}
+      {/*     </dialog> */}
+      {/*   </div> */}
+      {/* )} */}
       <div>
         <ul className="w-full mt-10">
           {data.map((event) => (
             <Fragment key={event.id}>
+              {reducedData[event.label] === event && (
+                <li className="text-gray-600 font-semibold text-left">
+                  {event.label}
+                </li>
+              )}
               <li
                 key={event.id}
                 className="flex items-center py-2 my-2 rounded-md bg-gray-100 relative w-full"
@@ -207,29 +98,18 @@ export default function Home() {
       <div className="mt-10">
         <h2 className="text-gray-600 font-semibold text-left mb-4">Oznamy</h2>
         <div className="grid grid-cols-2 gap-4">
-          {oznamy.slice(0, sliceIndexOznamy).map((oznam, index) => (
-            <Oznam
-              key={index}
-              card={oznam}
-              onClick={() =>
-                setActiveOznam({
-                  active: true,
-                  index: oznamy.indexOf(oznam),
-                  text: oznam.text,
-                  title: oznam.title,
-                  img: oznam.img,
-                })
-              }
-            />
+          {oznamy.slice(0, 2).map((oznam, index) => (
+            <Link href="/oznamy">
+              <Oznam key={index} card={oznam} onClick={() => {}} />
+            </Link>
           ))}
         </div>
-        {oznamy.length > sliceIndexOznamy && (
-          <button
-            className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full"
-            onClick={() => setSliceIndexOznamy(sliceIndexOznamy + 2)}
-          >
-            Načítať viac
-          </button>
+        {oznamy.length > 1 && (
+          <Link href="/oznamy">
+            <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">
+              Načítať viac
+            </button>
+          </Link>
         )}
       </div>
 
@@ -239,7 +119,7 @@ export default function Home() {
         </h2>
         <div className="mt-4">
           {navrhy.slice(0, 1).map((navrh, index) => (
-            <Card card={navrh} index={index} />
+            <Card card={navrh} index={index} onClick={() => {}} />
           ))}
           <Link href="/navrhy">
             <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">

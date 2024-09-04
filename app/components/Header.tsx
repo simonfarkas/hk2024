@@ -10,9 +10,11 @@ const Header = () => {
       <Link href="/">
         <Image src="/LOGO.svg" alt="logo" width={25} height={25} />
       </Link>
-      <div className="bg-red-600 px-4 py-1 flex flex-row items-center text-white rounded-md">
-        Prihlásiť sa
-      </div>
+      <Link href="/prihlasenie">
+        <div className="bg-red-600 px-4 py-2 flex flex-row items-center text-white rounded-md">
+          Prihlásiť sa
+        </div>
+      </Link>
     </header>
   );
 };
