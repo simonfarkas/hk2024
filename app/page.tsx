@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Card from "./components/Card";
 import { Fragment, useRef, useState, useEffect } from "react";
 
 const data = [
@@ -67,48 +68,44 @@ const oznamy = [
 
 const navrhy = [
   {
-    against: 40,
-    for: 60,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    options: [
+      {
+        id: 1,
+        percentage: 40,
+        title: "Ano",
+      },
+      {
+        id: 2,
+        percentage: 60,
+        title: "Nie",
+      },
+    ],
   },
   {
-    against: 40,
-    for: 60,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    against: 40,
-    for: 60,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    against: 40,
-    for: 60,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    against: 40,
-    for: 60,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    against: 40,
-    for: 60,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    against: 40,
-    for: 60,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    against: 40,
-    for: 60,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    options: [
+      {
+        id: 1,
+        title: "Ano",
+        percentage: 40,
+      },
+      {
+        id: 2,
+        title: "Nie",
+        percentage: 40,
+      },
+      {
+        id: 3,
+        title: "Neviem",
+        percentage: 20,
+      },
+    ],
   },
 ];
 
-const Card = ({
+
+const Oznam = ({
   card,
   onClick,
 }: {
@@ -211,7 +208,7 @@ export default function Home() {
         <h2 className="text-gray-600 font-semibold text-left mb-4">Oznamy</h2>
         <div className="grid grid-cols-2 gap-4">
           {oznamy.slice(0, sliceIndexOznamy).map((oznam, index) => (
-            <Card
+            <Oznam
               key={index}
               card={oznam}
               onClick={() =>
@@ -242,19 +239,7 @@ export default function Home() {
         </h2>
         <div className="mt-4">
           {navrhy.slice(0, 1).map((navrh, index) => (
-            <div key={index} className="bg-gray-100 p-4 rounded-md my-2">
-              <div className="flex justify-between mb-2">
-                <span className="text-green-600">Za {navrh.for}%</span>
-                <span className="text-red-600">Proti {navrh.against}%</span>
-              </div>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-500 h-2.5 rounded-full"
-                  style={{ width: `${navrh.for}%` }}
-                ></div>
-              </div>
-              <p className="mt-2 text-sm text-gray-500">{navrh.text}</p>
-            </div>
+            <Card card={navrh} index={index} />
           ))}
           <Link href="/navrhy">
             <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">
