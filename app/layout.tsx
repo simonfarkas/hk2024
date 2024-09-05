@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <html lang="sk">
       <body
-        className={"flex flex-col min-h-screen items-center justify-between"}
+        className={"flex flex-col min-h-screen items-center"}
       >
         {children}
       </body>

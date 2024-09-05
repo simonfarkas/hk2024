@@ -10,11 +10,11 @@ const Layout = ({
 }: {
   children: React.ReactNode;
   showNavbar: boolean;
-  showVectors: boolean;
+  showVectors?: boolean;
   showLogin?: boolean;
 }) => {
   return (
-    <main className="h-screen flex flex-col bg-white justify-between relative">
+    <div className="min-h-screen flex flex-col bg-white justify-between relative">
       {showVectors && (
         <>
           <div className="absolute top-0 right-10">
@@ -28,10 +28,12 @@ const Layout = ({
           </div>
         </>
       )}
-      <Header showLogin={showLogin} />
-      {children}
-      {showNavbar && <Navbar />}
-    </main>
+      <div>
+        <Header showLogin={showLogin} />
+        <main className='mt-10'>{children}</main>
+      </div>
+      <div className="sticky bottom-0 w-full">{showNavbar && <Navbar />}</div>
+    </div>
   );
 };
 
