@@ -10,7 +10,7 @@ const Header = ({
   const token = localStorage.getItem("token");
   return (
     <header
-      className="flex flex-row justify-between items-center w-full px-4 mt-4"
+      className="flex flex-row justify-between items-center w-full px-4 mt-4 sticky top-0 border-b border-gray-200 py-4 bg-white z-50" 
       style={{ maxWidth: "420px" }}
     >
       <Link href="/">

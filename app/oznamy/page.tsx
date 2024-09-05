@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "../components/Card";
+import AnnouncementCard from "../components/Announcement";
 import { useState, useRef, useEffect } from "react";
 import { oznamy } from "@/data";
 import Image from "next/image";
@@ -12,7 +12,6 @@ export default function Oznamy() {
     title: "",
     text: "",
     image: "",
-    options: [],
   });
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -63,7 +62,7 @@ export default function Oznamy() {
           <h2 className="text-gray-600 font-semibold text-left">Oznamy</h2>
           <div className="mt-4 gap-4">
             {oznamy.map((navrh, index) => (
-              <Card
+              <AnnouncementCard
                 key={index}
                 index={index}
                 card={navrh}
@@ -72,7 +71,6 @@ export default function Oznamy() {
                     active: true,
                     title: "Názor a návrh",
                     text: navrh.text,
-                    options: navrh.options,
                     image: navrh.image,
                   });
                 }}

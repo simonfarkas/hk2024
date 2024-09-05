@@ -16,7 +16,7 @@ const Prihlasenie = () => {
   return (
     <Layout showNavbar={false} showVectors={true} showLogin={false}>
       <div
-        className="px-4 relative h-full flex flex-col justify-center mt-80"
+        className="px-4 relative h-full flex flex-col justify-center mt-32"
         style={{ maxWidth: "420px", width: "420px" }}
       >
         <h1 className="text-red-600 text-2xl text-center font-bold">

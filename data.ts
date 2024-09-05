@@ -6,11 +6,13 @@ export const navrhy = [
         id: 1,
         percentage: 40,
         title: "Ano",
+        color: 'green'
       },
       {
         id: 2,
         percentage: 60,
         title: "Nie",
+        color: 'red'
       },
     ],
   },
@@ -21,16 +23,19 @@ export const navrhy = [
         id: 1,
         title: "Ano",
         percentage: 40,
+        color: 'green'
       },
       {
         id: 2,
         title: "Nie",
         percentage: 40,
+        color: 'red'
       },
       {
         id: 3,
         title: "Neviem",
         percentage: 20,
+        color: 'yellow'
       },
     ],
   },
@@ -68,21 +73,21 @@ export const oznamy = [
   {
     image: "/Group 8.jpg",
     title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+    text: "aLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco",
   },
   {
     image: "/Group 8.jpg",
     title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+    text: "aLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco",
   },
   {
     image: "/Group 8.jpg",
     title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+    text: "aLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco",
   },
   {
     image: "/Group 8.jpg",
     title: "Výročie SNP",
-    text: "asjd as ddas ajasudhas sadbasid asjdsajd",
+    text: "aLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco",
   },
 ];

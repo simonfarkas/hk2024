@@ -8,42 +8,37 @@ export default function Profile() {
   const logout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
-  }
+  };
   return (
     <Layout showNavbar={true} showVectors={false}>
-      <div className="px-4" style={{ maxWidth: "420px", width: "420px" }}>
-        <h1 className="text-2xl font-semibold">Profil</h1>
-        <div className="p-4 shadow-md">
-          <div className="flex flex-row items-center mt-4">
-            <Image
-              src="/Vector 3.svg"
-              alt="profile"
-              width={100}
-              height={100}
-              className="rounded-full"
-            />
-            <div className="ml-4">
-              <p className="font-semibold">John Doe</p>
-              <span>Kredit: 521</span>
-            </div>
+      <div
+        className="px-4 flex flex-col items-center justify-center"
+        style={{ maxWidth: "420px", width: "420px" }}
+      >
+        <h1 className="text-2xl font-semibold text-center mb-20">Profil</h1>
+        <Image
+          src="/face.png"
+          alt="profile"
+          width={200}
+          height={200}
+          className="rounded-full z-50"
+        />
+        <div className="mt-20 flex flex-row w-full justify-between">
+          <div>
+            <h2 className="font-bold text-2xl">Kamila Zelenova</h2>
+            <span>26 rokov, Mlýnska 3</span>
+          </div>
+          <div className="px-4 py-2 bg-red-600 rounded-md text-white items-center flex">
+            545 kreditov
           </div>
         </div>
         <ul>
-          <li className="flex flex-row items-center mt-4">
-            <span className="ml-2">Nákupy</span>
-          </li>
-
-          <li className="flex flex-row items-center mt-4">
-            <span className="ml-2">Nastavenia</span>
-          </li>
-
-          <li className="flex flex-row items-center mt-4">
-            <span className="ml-2">Pomoc</span>
-          </li>
-
-          <li className="flex flex-row items-center mt-4">
-            <span className="ml-2" onClick={logout}>Odhlásiť sa</span>
-          </li>
+          <button
+            className="mt-20 bg-red-600 text-white px-4 py-2 rounded-md"
+            onClick={logout}
+          >
+            Odhlásiť sa
+          </button>
         </ul>
       </div>
     </Layout>

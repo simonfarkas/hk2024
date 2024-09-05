@@ -2,33 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Card from "./components/Card";
+import AnnouncementCard from "./components/Announcement";
+import PollCard from "./components/PollCard";
 import { Fragment } from "react";
 import { data, navrhy, oznamy } from "../data";
 import Layout from "./components/Layout";
-
-const Oznam = ({
-  card,
-  onClick,
-}: {
-  card: {
-    image: string;
-    title: string;
-    text: string;
-  };
-  onClick: () => void;
-}) => {
-  return (
-    <div className="max-w-[300px] mb-4" onClick={onClick}>
-      <Image src={card.image} alt="oznam" width={300} height={150} />
-      <div className="bg-white shadow-md p-2">
-        <h3 className="font-semibold">{card.title}</h3>
-        <p className="text-gray-600 text-sm">{card.text}</p>
-        <button className="text-red-500 mt-2">Čítať ďalej</button>
-      </div>
-    </div>
-  );
-};
 
 export default function Home() {
   const reducedData = data.reduce((acc: any, curr) => {
@@ -41,27 +19,6 @@ export default function Home() {
   return (
     <Layout showNavbar={true}>
       <div className="px-4" style={{ maxWidth: "420px", width: "420px" }}>
-        {/* {activeOznam.active && ( */}
-        {/*   <div className="fixed inset-0 flex items-center justify-center z-50"> */}
-        {/*     <div className="absolute inset-0 bg-black bg-opacity-75"></div> */}
-        {/*     <dialog */}
-        {/*       open={activeOznam.active} */}
-        {/*       className="relative bg-white p-6 rounded-lg shadow-lg w-full px-4" */}
-        {/*       style={{ maxWidth: "420px", width: "390px" }} */}
-        {/*       ref={oznamRef} */}
-        {/*     > */}
-        {/*       <Image src={activeOznam.img} alt="oznam" width={300} height={150} /> */}
-        {/*       <h2 className="font-semibold text-xl mb-4">{activeOznam.title}</h2> */}
-        {/*       <p className="text-gray-600 mb-4">{activeOznam.text}</p> */}
-        {/*       <button */}
-        {/*         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" */}
-        {/*         onClick={() => setActiveOznam({ ...activeOznam, active: false })} */}
-        {/*       > */}
-        {/*         Zavrieť */}
-        {/*       </button> */}
-        {/*     </dialog> */}
-        {/*   </div> */}
-        {/* )} */}
         <div>
           <ul className="w-full mt-10">
             {data.map((event) => (
@@ -102,7 +59,7 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             {oznamy.slice(0, 2).map((oznam, index) => (
               <Link href="/oznamy">
-                <Oznam key={index} card={oznam} onClick={() => {}} />
+                <AnnouncementCard key={index} card={oznam} index={index} />
               </Link>
             ))}
           </div>
@@ -121,7 +78,7 @@ export default function Home() {
           </h2>
           <div className="mt-4">
             {navrhy.slice(0, 1).map((navrh, index) => (
-              <Card card={navrh} index={index}  />
+              <PollCard card={navrh} index={index} hideButton />
             ))}
             <Link href="/navrhy">
               <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">
