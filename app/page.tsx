@@ -121,7 +121,7 @@ export default function Home() {
           </h2>
           <div className="mt-4">
             {navrhy.slice(0, 1).map((navrh, index) => (
-              <Card card={navrh} index={index} onClick={() => {}} />
+              <Card card={navrh} index={index}  />
             ))}
             <Link href="/navrhy">
               <button className="text-red-500 mt-2 border-2 rounded-md py-2 border-red-500 w-full">

@@ -12,7 +12,7 @@ const Card = ({
     text: string;
   };
   index: number;
-  onClick: () => void;
+  onClick?: () => void;
 }) => {
   const totalPercentage = card.options?.reduce(
     (acc, option) => acc + option.percentage,
